@@ -11,8 +11,18 @@ int main()
     {
         printf("shell> ");
         gets(buf);
+
         narg = getargs(buf, argv);
+
         pid = fork();
+
+        // "exit" 입력 시 프로그램 종료
+        if (strcmp(buf, "exit") == 0)
+        {
+            printf("Goodbye!\n");
+            break;
+        }
+
         if (pid == 0)
             execvp(argv[0], argv);
         else if (pid > 0)
