@@ -7,10 +7,16 @@
 
 // 함수 원형 추가
 int execute_command(char **argv, int background);
+int getargs(char *cmd, char **argv);
 
 void sigint_handler(int signo)
 {
     printf("  Ctrl+C 프로세스 종료 \n");
+}
+
+void sigquit_handler(int signo)
+{
+    printf("Ctrl+Z: 프로세스 일시 중지\n");
 }
 
 int main()
@@ -22,6 +28,7 @@ int main()
     int background = 0; // 백그라운드 실행 여부를 나타내는 플래그
 
     signal(SIGINT, sigint_handler);
+    signal(SIGQUIT, sigquit_handler);
 
     while (1)
     {
